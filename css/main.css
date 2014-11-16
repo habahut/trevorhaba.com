@@ -1,0 +1,16 @@
+.slide{
+    width:960px;
+    height:392px;
+    display:inline;
+    position: absolute;    
+}
+
+.slides {
+    position: relative;
+    width: 960px;
+    height: 392px; 
+}
+
+.slideShow-container * {
+    display: inline-block;
+}

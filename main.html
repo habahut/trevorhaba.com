@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>Womp</title>
+        <link rel="stylesheet" href="css/main.css">
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="bower_components/jqueryui/jquery-ui.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                function slideShow(dir) {
+                    if (dir) {
+                        clearInterval(slideTimer);
+                        setTimeout(function() { slideTimer = setInterval(slideShow, 2000); console.log("reset"); }, 5000);
+                    }
+                    var dir = dir || 1,
+                        current1 = $('.slide:visible'),
+                        hideoptions = {
+                            "direction": (dir == 1) ? "left" : "right",
+                            "mode": "hide"
+                        },
+                        showoptions = {
+                            "direction": (dir == 1) ? "right" : "left",
+                            "mode": "show"
+                        };
+                        nextSlide = (dir == 1) ? current1.next('.slide') : current1.prev('.slide');
+                    if (nextSlide.length == 0) {
+                        nextSlide = (dir == 1) ? $("#firstSlide") : $("#lastSlide");
+                    }
+                    current1.effect("slide", hideoptions, 1000);
+                    nextSlide.effect("slide", showoptions, 1000);
+                };
+                var slideTimer = setInterval(slideShow, 2000);
+
+                $("#scrollL").click(function() {
+                    slideShow(1);
+                });
+                $("#scrollR").click(function() {
+                    slideShow(-1);
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="slideShow-container">
+            <button id="scrollL">scroll L</button>
+            <div id="slides">
+                    <img class="slide" id="firstSlide" src="images/success-icon.png" >
+                    <img class="slide" style="display: none;" src="images/error-icon.png" >
+                    <img class="slide" id="lastSlide" style="display: none;" src="images/loading-icon.png" >
+            </div>
+            <button id="scrollR">scroll R</button>
+        </div>
+    </body>
+</html>
