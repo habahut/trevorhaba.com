@@ -4,6 +4,7 @@
     display: inline-block;
     position: relative;
     float: left;
+    overflow: hidden;
 }
 
 .bigheader {
@@ -12,21 +13,32 @@
     padding-top: 15px;
     padding-left: 10px;
     /*color: #1b2d80;*/
-    color: #0a1c70
-     
+    color: #b31b1b;
+    //previous current 
 }
 
 .smallheader {
-    padding-left: 30px;
+    text-align: right;
+    padding-right: 30px;
     font-size: 1.5em;
     /*color: #1b2d80;*/
-    color: #0a1c70;
+    /*color: #0a1c70; previous current */
+    color: #22a9c2;
 }
 
 .ruler {
     border: none;
     height: 5px;
-    background-color: #2c3e90;
+    background-color: #00b8b8;
+    margin-bottom: 0;
+    /*background-color: #22a9c2;*/
+}
+
+.table-of-contents {
+    width: 100%;
+    height: 99%;
+    top: 0;
+    /*background-color: #662525;*/
 }
 
 .slides {
@@ -47,7 +59,6 @@
 }
 .button-wrapper {
     height: 100%;
-    vertical-align: center;
     z-index: 999;
     display: inline-flex;
     overflow: hidden;
@@ -92,10 +103,27 @@
     padding-left: 7px;
 }
 
+.clear {
+    clear: both;
+}
+
+.footer {
+    background-color: #212121;
+    width: 100%;
+    color: #FFFFFF;
+}
+
 body {
     /*background-color: #EBEBEB;*/
     margin: 0px;
-    background: #972e1a;
+    /*background: #c23b22;*/
+
+    background: #711111;
+
+    /*background: #812717; // brick red*/
+
+
+    /*background: #972e1a; pumpkin color */
     /*background: #812717;*/
     /*background: #e74c3c;*/
 }
