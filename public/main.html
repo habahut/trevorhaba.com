@@ -6,10 +6,19 @@
         <script type="text/javascript" src="bower_components/jqueryui/jquery-ui.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
+                var defaultTimer = 5000;
+                // this seems to freak out if you click when there is already a transition happening
                 function slideShow(dir) {
+                    console.log("slide timer: " , slideTimer);
                     if (dir) {
                         clearInterval(slideTimer);
-                        setTimeout(function() { slideTimer = setInterval(slideShow, 2000); console.log("reset"); }, 5000);
+                        console.log("setting timer");
+                        // its possible that running setInterval multiple times is not working properly.
+                        // are we sure that slide timer is getting saved here?
+
+                        // YES slide timer is not being reset properly, so we are getting multiple stacks of it
+                        // not sure how to fix that here...
+                        //setTimeout(function() { slideTimer = setInterval(slideShow, defaultTimer); console.log("reset to", slideTimer); }, 5000);
                     }
                     var dir = dir || 1,
                         current1 = $('.slide:visible'),
@@ -28,7 +37,7 @@
                     current1.effect("slide", hideoptions, 1000);
                     nextSlide.effect("slide", showoptions, 1000);
                 };
-                var slideTimer = setInterval(slideShow, 2000);
+                var slideTimer = setInterval(slideShow, defaultTimer);
 
                 $("#scrollL").click(function() {
                     slideShow(1);
@@ -36,18 +45,59 @@
                 $("#scrollR").click(function() {
                     slideShow(-1);
                 });
+
+                $("img").load(function() {
+                    console.log("loaded an image! ", $(this).width(), $(this).height());
+                });
+
+                var buttonH = 50;
+                $(window).resize(function() {
+                    var wh = $(window).height();
+                    wh -= buttonH;
+                    topH = (wh * .75).toString() + "px";
+                    botH = (wh * .25).toString() + "px";
+                    $(".scrollButton").css("margin-top", topH).css("margin-bottom", botH);
+
+                    // resize all images to maintain their aspect ratio
+                    // determine max ratio: biggest aspect / corresponding window size
+                    // then multiply that ratio * each size
+                    var ww = $(window).width();
+                    $(".slide").each(function() {
+                        console.log(this);
+                        var sh = $(this).height(),
+                            sw = $(this).width();
+                        console.log("converting ", sh, sw);
+                        if (sh > sw) {
+                            var maxRatio = wh / sh;
+                        } else {
+                            var maxRatio = ww / sw;
+                        }
+                        sh *= maxRatio;
+                        sw *= maxRatio;
+                        $(this).css("height", sh.toString());
+                        $(this).css("width", sw.toString());
+                        console.log("   to: ", sh, sw);
+                        console.log("-=-==--=-==-");
+                    });
+                });
+                $(window).trigger('resize');
             });
         </script>
     </head>
     <body>
-        <div id="slideShow-container">
-            <button id="scrollL">scroll L</button>
-            <div id="slides">
-                    <img class="slide" id="firstSlide" src="images/success-icon.png" >
-                    <img class="slide" style="display: none;" src="images/error-icon.png" >
-                    <img class="slide" id="lastSlide" style="display: none;" src="images/loading-icon.png" >
+        <!--<div class="slideShow-wrapper">-->
+            <div class="slides">
+                <div class="button-wrapper" id="wrapper-left">
+                    <button class="scrollButton" id="scrollL"><</button>
+                </div>
+                <img class="slide" id="firstSlide" src="http://s3.amazonaws.com/trevor.haba.art-images/fullsize/Pirate+Sculpture.jpg">
+                <img class="slide" style="display: none;" src="http://s3.amazonaws.com/trevor.haba.art-images/fullsize/5.+Trevor+Haba+-+More+Blocks+for+Adults.jpg">
+                <img class="slide" style="display: none;" src="http://s3.amazonaws.com/trevor.haba.art-images/fullsize/Tower+of+Madness.JPG">
+                <img class="slide" id="lastSlide" style="display: none;" src="http://s3.amazonaws.com/trevor.haba.art-images/fullsize/Zinger.JPG">
+                <div class="button-wrapper" id="wrapper-right">
+                    <button class="scrollButton" id="scrollR">></button>
+                </div>
             </div>
-            <button id="scrollR">scroll R</button>
-        </div>
+        <!--</div>-->
     </body>
 </html>
