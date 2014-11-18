@@ -12,3 +12,38 @@
     -moz-box-sizing:border-box;
     box-sizing:border-box;
 }
+
+.splitheader {
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+
+    font-size: 200%;
+    padding: 0px;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+    background-color: #FFFFFF;
+}
+
+.splitheaderL {
+    width: 50%;
+    background-color: #00FF00;
+    color: #FF00FF;
+    float: left;
+    text-align: right;
+}
+.padR {
+    padding-right: 25px;
+}
+.splitheaderR {
+    width: 50%;
+    background-color: #FF00FF;
+    color: #00FF00;
+    text-align: left;
+    float: right;
+}
+.padL {
+    padding-left: 25px;
+}

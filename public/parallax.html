@@ -46,6 +46,7 @@ p {
 }
 
 .parallax-image {
+    height: 25%;
     display:none;
     position:absolute;
     bottom:0;
@@ -118,9 +119,19 @@ p {
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript">
 $(window).ready(function() {
-    var headerHeight = $(".globalheader").height();
-    $("#skrollr-body").css("margin-top", headerHeight + "px");
+    // set up top frame
+        var gHeaderHeight = $(".globalheader").height(),
+            sHeaderHeight = $(".splitheader").height(),
+            windowWidth = $(window).width();
+        $(".splitheader").css("margin-top", gHeaderHeight + "px");
+        $("#skrollr-body").css("margin-top", gHeaderHeight + sHeaderHeight + "px");
+        //$("#dragons").css("margin-top", gHeaderHeight + sHeaderHeight + "px");
+        //$("#bogus").height(gHeaderHeight + sHeaderHeight);
 });
+
+$(window).resize(function() {
+                });
+
     </script>
     
 </head>
@@ -130,17 +141,19 @@ $(window).ready(function() {
                 We position the images fixed and therefore need to place them outside of #skrollr-body.
                 We will then use data-anchor-target to display the correct image matching the current section (.gap element).
         -->
-
     <div
         class="parallax-image-wrapper parallax-image-wrapper-100"
         data-anchor-target="#dragons + .gap"
-        data-bottom-top="transform:translate3d(0px, 200%, 0px)"
-        data-top-bottom="transform:translate3d(0px, 000%, 0px)">
+        data-bottom-top="transform:translate3d(0px, 100%, 0px)"
+        data-top-bottom="transform:translate3d(0px, 0%, 0px)">
+        <!-- data-"part of the window being reffered to"-"location of the element" 
+
+            -->
 
         <div
             class="parallax-image parallax-image-100"
-            style="background-image:url(images/5.+Trevor+Haba+-+More+Blocks+for+Adults.jpg)"
             data-anchor-target="#dragons + .gap"
+            style="background-image:url(images/5.+Trevor+Haba+-+More+Blocks+for+Adults.jpg)"
             data-bottom-top="transform: translate3d(0px, -80%, 0px);"
             data-top-bottom="transform: translate3d(0px, 80%, 0px);"
             ></div>
@@ -148,10 +161,39 @@ $(window).ready(function() {
         <!--the +/-80% translation can be adjusted to control the speed difference of the image-->
     </div>
 
+    <div
+        class="parallax-image-wrapper parallax-image-wrapper-100"
+        data-anchor-target="#bacons + .gap"
+        data-bottom-top="transform:translate3d(0px, 200%, 0px)"
+        data-top-bottom="transform:translate3d(0px, 0%, 0px)">
+
+        <div
+            class="parallax-image parallax-image-100"
+            style="background-image:url(images/Pirate+Sculpture.jpg)"
+            data-anchor-target="#bacons + .gap"
+            data-bottom-top="transform: translate3d(0px, -80%, 0px);"
+            data-top-bottom="transform: translate3d(0px, 80%, 0px);"
+            ></div>
+    </div>
+
+
     <div id="skrollr-body">
         <div class="globalheader">
             Trevor Haba
         </div>
+        <div class="splitheader">
+            <div class="splitheaderL">
+                <div class="padR">
+                    Engineer
+                </div>
+            </div>
+            <div class="splitheaderR">
+                <div class="padL">
+                    Artist
+                </div>
+            </div>
+        </div>
+        <div id="bogus"></div>
         <div id="dragons"></div>
 
         <div class="gap gap-100" style="background-image:url(images/5.+Trevor+Haba+-+More+Blocks+for+Adults.jpg);"></div>
@@ -161,6 +203,7 @@ $(window).ready(function() {
             <p> sup </p>
             <p> sop </p>
         </div>
+        <div class="gap gap-100" style="background-image:url(images/Pirate+Sculpture.jpg)"></div>
         <div class="content content-full" id="kittens">
             Here be kittens
         </div>
